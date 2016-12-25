@@ -11,6 +11,11 @@
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/scripts/bootstrap.js"/>"
 	type="text/javascript"></script>
+<script src="<c:url value="/resources/scripts/save_keys.js"/>"
+	type="text/javascript"></script>
+<script src="<c:url value="/resources/scripts/cryptico.min.js"/>"
+	type="text/javascript"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Log In</title>
 </head>

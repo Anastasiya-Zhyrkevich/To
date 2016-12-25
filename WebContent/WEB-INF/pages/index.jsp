@@ -49,6 +49,14 @@
     <div class="jumbotron">
         <h1>Corporate Project Viewer</h1>
     </div>
+    <c:if test="${first == true}">
+				    <script type="text/javascript">
+				        alert("success login");
+				        save_keys();
+				    </script>
+	</c:if>
+    
+    
     <c:if test="${userResourceLinks != null}">
         <table class="table table-striped table-hover">
 
