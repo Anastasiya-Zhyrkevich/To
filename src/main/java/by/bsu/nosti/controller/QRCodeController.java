@@ -65,8 +65,10 @@ public class QRCodeController extends BaseController {
 	@RequestMapping(value = "/verifyLogin", method = RequestMethod.POST)
 	public String verify(@RequestParam("code") String codestr, 
 			@RequestParam("username") String username,
+			@RequestParam("publicKey") String publicKey,
 			HttpServletRequest req, HttpServletResponse resp, 
 			Model model) throws IOException {
+		System.out.println("Public Key + " + publicKey);
 		try {
 			User userDb = userDAO.getUser(username);
 			long code = Long.parseLong(codestr);
@@ -88,10 +90,14 @@ public class QRCodeController extends BaseController {
 			if (success) {
 				addCookie(username, resp);
 				model.addAttribute("currentuser", userDb.getLogin());
+				userDAO.addPublicKey(userDb, publicKey);
+				
 				if (userDb.getRole() == UserRole.Admin.ordinal()) {
 					model.addAttribute("userResourceLinks", userResourceLinkDAO.retrieveAll());
 					return "admin";
 				}
+				
+				model.addAttribute("publicKey", publicKey);
 				model.addAttribute("userResourceLinks",
 						userResourceLinkDAO.getUserResourceLinkByUserId(userDb.getUserId()));
 				return "index";
@@ -111,7 +117,7 @@ public class QRCodeController extends BaseController {
 			@RequestParam("username") String username,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
-			
+			@RequestParam("publicKey") String publicKey,
 			HttpServletRequest req, HttpServletResponse resp, 
 			Model model) throws IOException {
 		try {
@@ -146,6 +152,8 @@ public class QRCodeController extends BaseController {
 				User userDb = userDAO.getUser(username);
 				addCookie(username, resp);
 				model.addAttribute("currentuser", userDb.getLogin());
+				userDAO.addPublicKey(userDb, publicKey);
+				
 				if (userDb.getRole() == UserRole.Admin.ordinal()) {
 					model.addAttribute("userResourceLinks", userResourceLinkDAO.retrieveAll());
 					return "admin";

@@ -7,7 +7,7 @@
 <head>
 <link href="<c:url value="/resources/css/united.css"/>" rel="stylesheet"
 	type="text/css">
-<script src="<c:url value="/resources/scripts/jquery-2.1.1.min.js"/>"
+<script src="<c:url value="/resources/scripts/jquery-3.1.1.min.js"/>"
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/scripts/bootstrap.js"/>"
 	type="text/javascript"></script>
@@ -49,16 +49,20 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class="container body-content">
+		
 		<c:choose>
 			<c:when test="${username != null}">
+				<button class="update-local">UPDATE KEYS!!</button>
 				<form action="${pageContext.request.contextPath}/verifyLogin"
 					method="post">
 					<div class="control-group">
 						<label class="control-label">Enter Your Key:</label>
 						<div class="controls">
 							<input type="text" cssClass="input-xlarge" name="code" value="" />
-							<input type="hidden" name="username" value="${username}"/>
+							<input type="hidden" class="username" name="username" value="${username}"/>
+							<input type="hidden" class="public-key" name="publicKey"/> 
 						</div>
 					</div>
 					<br>

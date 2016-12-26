@@ -7,9 +7,17 @@ public class User {
     private String password;
     private int role;
     private String k;
-    
+    private String publicKey;
+      
+    public String getPublicKey() {
+		return publicKey;
+	}
 
-    public User() {
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
+	}
+
+	public User() {
         super();
     }
 

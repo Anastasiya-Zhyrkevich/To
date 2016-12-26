@@ -26,6 +26,7 @@ public class UserDAOImpl implements UserDAO {
 	private static final String SQL_SELECT_ALL_USERS = "SELECT ID, LOGIN, EMAIL, PASSWORD, ROLE, K FROM USER";
 	private static final String SQL_UPDATE_USER = "UPDATE USER SET LOGIN=?, EMAIL=?, PASSWORD=?, ROLE=? WHERE ID=?";
 	private static final String SQL_DELETE_USER = "DELETE FROM USER WHERE ID=?";
+	private static final String SQL_SET_PUBLICKEY_BY_ID = "UPDATE USER SET PUBLICKEY=? where ID=?";
 
 	private static final String USER_ID = "ID";
 	private static final String LOGIN = "LOGIN";
@@ -174,4 +175,22 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return user;
 	}
+	
+	
+	public User addPublicKey(User user, String publicKey) throws DAOException {
+
+		try (Connection con = dataSource.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_SET_PUBLICKEY_BY_ID);) {
+			ps.setString(1, publicKey);
+			ps.setInt(2, user.getUserId());
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DAOException("Error updating User Public Key on the serevr side. " + e.getMessage(), e);
+		}
+		return user;
+	}
+
+	
+	
 }
